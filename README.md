@@ -2,29 +2,53 @@
 2022-1 SNU CSE System Programming Cache Lab (based on CMU 15-213 Cache Lab)
 
 i. Cache Simulator
+
 <Pseudo Code>
-parse_args()
-load_cache()
-f=fopen(t)
-while(fscanf(f)) do:
-tag = (address >> s) >> b
-set = (address >> b) & (S - 1)
-for line in cache do:
-if cache is valid and tag matches do:
-IS_HIT = 1
-time_step()
-break
-if IS_HIT is false do:
-lru_line = find_lru()
-IS_EVICTED = is cache at lru_line valid
-set valid bit = 1
-set tag = tag
-time_step()
-update_count()
-fclose(f)
-clean_cache()
-printSummary()
-When the cache simulator starts, first the arguments are parsed. Given arguments are -s, -
+
+  parse_args()
+
+  load_cache()
+
+  f=fopen(t)
+
+  while(fscanf(f)) do:
+    
+    tag = (address >> s) >> b
+    
+    set = (address >> b) & (S - 1)
+
+    for line in cache do:
+
+      if cache is valid and tag matches do:
+
+        IS_HIT = 1
+
+        time_step()
+
+        break
+
+      if IS_HIT is false do:
+
+        lru_line = find_lru()
+
+        IS_EVICTED = is cache at lru_line valid
+        
+        set valid bit = 1
+    
+        set tag = tag
+
+        time_step()
+
+        update_count()
+
+        fclose(f)
+
+        clean_cache()
+
+        printSummary()
+
+  
+  When the cache simulator starts, first the arguments are parsed. Given arguments are -s, -
 E, -b, -t, -v, -h. Using the parameters of the cache given in the arguments, load_cache() 
 is called, which allocates the appropriate space for the cache array. Two malloc functions 
 are called, the first a malloc of size # of sets * size of cache line (size of int + size 
@@ -46,8 +70,11 @@ largest lru_counter value, which is then returned and used as the lru line value
 Once the trace file is completed, the file pointer must be closed. Also, the previously 
 dynamically allocated memory must be freed, through the clean_cache() function. Finally, 
 all the counts are summarized and printed using the printSummary() function.
-ii. Matrix Transpose
-The problem is divided into three cases: 32x32, 64x64, and 61x67. For 32x32 and 61x67, the 
+
+  
+  ii. Matrix Transpose
+
+  The problem is divided into three cases: 32x32, 64x64, and 61x67. For 32x32 and 61x67, the 
 same algorithm is applied. This algorithm divides the given matrix into blocks (block size 
 of 8x8 for 32x32 and block size 16x16 for 61x67), then iterates on each of the blocks, 
 saving diagonal values to a local variable while replacing non-diagonal values into the 
